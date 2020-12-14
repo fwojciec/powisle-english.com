@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import useBackground from '../hooks/useBackground'
 import Background from './Background'
 

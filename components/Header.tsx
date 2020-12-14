@@ -1,8 +1,8 @@
-import React from 'react'
+import { forwardRef, useRef } from 'react'
 import useScrollOpacity from '../hooks/useScrollOpacity'
 
-const Header = React.forwardRef<HTMLDivElement>((_, outerRef) => {
-  const innerRef = React.useRef<HTMLDivElement>()
+const Header = forwardRef<HTMLDivElement>((_, outerRef) => {
+  const innerRef = useRef<HTMLDivElement>()
   const opacity = useScrollOpacity(innerRef)
 
   return (
