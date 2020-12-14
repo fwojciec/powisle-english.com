@@ -1,4 +1,4 @@
-type Page = 'start' | 'bio' | 'contact'
+type Page = 'start' | 'testimonials' | 'services' | 'bio' | 'where' | 'contact'
 
 interface Section {
   ref: RefObject<HTMLElement>

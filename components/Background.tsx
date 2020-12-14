@@ -10,12 +10,16 @@ interface Props {
 const Background: React.FC<Props> = ({ variant, on }) => {
   function getPath(variant: Page) {
     switch (variant) {
+      case 'testimonials':
+        return '/assets/img/testimonials.jpg'
       case 'bio':
-        return '/assets/img/pic01.jpg'
-      case 'contact':
-        return '/assets/img/pic03.jpg'
+        return '/assets/img/bio.jpg'
+      case 'services':
+        return '/assets/img/services.jpg'
+      case 'where':
+        return '/assets/img/where.jpg'
       default:
-        return '/assets/img/bg.jpg'
+        return '/assets/img/start.jpg'
     }
   }
   return (

@@ -1,12 +1,28 @@
 import React from 'react'
-import styles from '../styles/Section.module.css'
 
-const Section = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLElement>>(
-  ({ children, id }, ref) => {
+interface Props extends React.HTMLProps<HTMLElement> {
+  title: string
+  scrollTo?: string
+}
+
+const Section = React.forwardRef<HTMLDivElement, Props>(
+  ({ children, id, title, scrollTo }, ref) => {
     return (
-      <div className={styles.root} ref={ref} id={id}>
-        {children}
-      </div>
+      <section
+        className="section container container--section"
+        id={id}
+        ref={ref}
+      >
+        <div className="section--inner">
+          <h2 className="section--title">{title}</h2>
+          {children}
+        </div>
+        {scrollTo && (
+          <a className="button button--secondary" href={`#${scrollTo}`}>
+            Next
+          </a>
+        )}
+      </section>
     )
   }
 )

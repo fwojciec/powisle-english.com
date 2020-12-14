@@ -1,27 +1,28 @@
 import React from 'react'
 import useScrollOpacity from '../hooks/useScrollOpacity'
-import styles from '../styles/Header.module.css'
 
 const Header = React.forwardRef<HTMLDivElement>((_, outerRef) => {
   const innerRef = React.useRef<HTMLDivElement>()
   const opacity = useScrollOpacity(innerRef)
 
   return (
-    <section className={styles.root} ref={outerRef}>
-      <div ref={innerRef} style={{ height: '100%' }}>
-        <header className={styles.header} style={{ opacity }}>
-          <h1 className="major">Powiśle English Lessons</h1>
-          <p>
+    <header className="header" ref={outerRef}>
+      <div className="header--inner" ref={innerRef}>
+        <div className="header--text" style={{ opacity }}>
+          <h1 className="header--title">Powiśle English Lessons</h1>
+          <p className="header--subtitle">
             <span>Learn from a native speaker</span>
             <br />
             <span>Feel more confident about your English</span>
           </p>
-        </header>
-        <div className={styles.container}>
-          <a href="#two">Find out more</a>
+        </div>
+        <div className="container container--header">
+          <a className="button button--primary" href="#testimonials">
+            Find out more
+          </a>
         </div>
       </div>
-    </section>
+    </header>
   )
 })
 

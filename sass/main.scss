@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,400italic,700,800');
+
+// colors
+$color-fg: white;
+$color-text: #61686b;
+$color-bg: #313a3d;
+$color-borders: #dddddd;
+$color-button-1: #8cd1a8;
+$color-button-1-hover: #9ed8b6;
+$color-button-2: hsla(0, 0%, 56%, 0.075);
+$color-button-2-hover: hsla(0, 0%, 56%, 0.15);
+$color-containter-bg: hsla(0, 0%, 100%, 0.95);
+$color-testimonial-bg: hsla(0, 0%, 60%, 0.075);
+
+// breakpoints
+$bp-large: 1680px;
+$bp-medium: 980px;
+$bp-small: 736px;
+$bp-xsmall: 480px;
+
+@mixin large {
+  @media screen and (max-width: #{$bp-large}) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (max-width: #{$bp-medium}) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media screen and (max-width: #{$bp-small}) {
+    @content;
+  }
+}
+
+@mixin xsmall {
+  @media screen and (max-width: #{$bp-xsmall}) {
+    @content;
+  }
+}
+
+@mixin major {
+  &::after {
+    content: '';
+    display: block;
+    position: relative;
+    height: 2px;
+    width: 4em;
+    margin: 0.75em auto 0 auto;
+    background: $color-borders;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: $color-fg;
+  background-color: $color-bg;
+  font-size: 20px;
+  font-family: 'Raleway', 'Helvetica', sans-serif;
+  text-align: center;
+  line-height: 1.75em;
+
+  @include large {
+    font-size: 16px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 800;
+  letter-spacing: 0.075em;
+  line-height: 1em;
+  margin: 0 0 1em 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.75em;
+  line-height: 1.5em;
+
+  @include small {
+    font-size: 1.35em;
+  }
+}
+
+h3 {
+  font-size: 1em;
+  line-height: 1.5em;
+  padding: 0 1em;
+}
+
+h4 {
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
+
+h5 {
+  font-size: 0.8em;
+  line-height: 1.5em;
+}
+
+h6 {
+  font-size: 0.7em;
+  line-height: 1.5em;
+}
+
+.background {
+  z-index: -10;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.header {
+  position: relative;
+
+  &--inner {
+    height: 100vh;
+
+    @include small {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+  }
+
+  &--text {
+    position: fixed;
+    top: 50%;
+    left: 0%;
+    width: 100%;
+    margin-top: -183.5px;
+
+    @include large {
+      margin-top: -147px;
+    }
+
+    @include small {
+      position: relative;
+      top: unset;
+      left: unset;
+      margin: 0;
+      padding: 1em;
+      width: 100%;
+    }
+  }
+
+  &--title {
+    font-size: 3em;
+    line-height: 1.25em;
+    text-transform: uppercase;
+    margin: 0;
+
+    @include major;
+
+    &::after {
+      margin-top: 0.5em;
+    }
+
+    @include small {
+      font-size: 2em;
+      line-height: 1.25em;
+    }
+  }
+
+  &--subtitle {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 1.5em;
+
+    @include small {
+      margin-top: 1em;
+    }
+  }
+}
+
+.button {
+  display: block;
+  transition: background-color 0.2s ease-in-out;
+  border: 0;
+
+  &--primary {
+    display: inline-block;
+    min-width: 12em;
+    height: 3em;
+    padding: 0 2em;
+    color: $color-fg;
+    background-color: $color-button-1;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 3.15em;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: $color-button-1-hover;
+    }
+  }
+
+  &--secondary {
+    position: absolute;
+    left: 50%;
+    bottom: 3em;
+    height: 4em;
+    width: 4em;
+    border-radius: 100%;
+    background-color: $color-button-2;
+    background-image: url('/assets/img/arrow.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    line-height: 4em;
+    margin-left: -2em;
+    overflow: hidden;
+    text-indent: 4em;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $color-button-2-hover;
+    }
+
+    @include small {
+      display: none;
+    }
+  }
+}
+
+.container {
+  background: $color-containter-bg;
+  width: 35em;
+  margin: 0 auto;
+  color: $color-text;
+  padding: 2.5em;
+
+  &--header {
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include small {
+      display: none;
+    }
+  }
+
+  &--section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-shadow: inset 0 1px 0 0 $color-borders;
+    padding: 5em 2.5em 8em;
+
+    @include small {
+      padding: 3em 1.5em 1em;
+      width: 80%;
+      min-height: unset;
+    }
+
+    @include xsmall {
+      padding: 3em 1em 1em;
+      width: 100%;
+    }
+  }
+}
+
+.section {
+  &--title {
+    @include major;
+  }
+}
+
+.testimonial {
+  margin: 2.5em auto;
+  padding: 1em;
+  font-size: 1.1em;
+  background: $color-testimonial-bg;
+
+  @include small {
+    margin: 1em auto;
+    font-size: 1em;
+  }
+}
+
+.services {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  margin: 2em 0;
+
+  &--item {
+    display: block;
+    float: left;
+    padding: 3em 0;
+    width: 50%;
+
+    &:nth-child(2n + 1) {
+      box-shadow: inset -1px 0 0 0 $color-borders, 1px 0 0 0 $color-borders;
+
+      @include xsmall {
+        box-shadow: none;
+      }
+    }
+
+    &:nth-child(2n + 3)::before {
+      content: '';
+      background: $color-borders;
+      display: block;
+      height: 2px;
+      margin-top: -3em;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  &--icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1em;
+  }
+}

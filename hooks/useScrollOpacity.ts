@@ -20,16 +20,24 @@ export default function useScrollOpacity(ref: RefObject<HTMLDivElement>) {
       return (vMiddle - eTop) / (eBottom - eTop)
     }
 
-    function getOpacity(progress: number) {
+    function getOpacity(progress: number, windowWidth: number) {
+      if (windowWidth <= 980) return 1
       const x = progress > 0.5 ? 1 - progress : progress
       return Math.max(0, Math.min(1, x * 2))
     }
 
-    setOpacity(getOpacity(getProgress(sp, window.innerHeight, ref)))
+    setOpacity(
+      getOpacity(getProgress(sp, window.innerHeight, ref), window.innerWidth)
+    )
 
     function handleResize() {
       if (!waiting.current) {
-        setOpacity(getOpacity(getProgress(sp, window.innerHeight, ref)))
+        setOpacity(
+          getOpacity(
+            getProgress(sp, window.innerHeight, ref),
+            window.innerWidth
+          )
+        )
         waiting.current = true
         id.current = window.requestAnimationFrame(() => {
           waiting.current = false
