@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRef } from 'react'
 import { MotionConfig, AnimationFeature, ExitFeature } from 'framer-motion'
 import { NextPage } from 'next'
 import Backgrounds from '../components/Backgrounds'
@@ -9,11 +9,11 @@ import { Services } from '../components/Services'
 import Head from 'next/head'
 
 const Home: NextPage = () => {
-  const headerRef = React.useRef<HTMLDivElement>()
-  const testimonialsRef = React.useRef<HTMLDivElement>()
-  const bioRef = React.useRef<HTMLDivElement>()
-  const servicesRef = React.useRef<HTMLDivElement>()
-  const whereRef = React.useRef<HTMLDivElement>()
+  const headerRef = useRef<HTMLDivElement>()
+  const testimonialsRef = useRef<HTMLDivElement>()
+  const bioRef = useRef<HTMLDivElement>()
+  const servicesRef = useRef<HTMLDivElement>()
+  const whereRef = useRef<HTMLDivElement>()
 
   const sections: Section[] = [
     { ref: headerRef, page: 'start' },
