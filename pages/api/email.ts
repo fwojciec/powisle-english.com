@@ -15,7 +15,7 @@ export default async function handler(
 ) {
   const body = req.body as Message
   const msg = {
-    to: 'fwojciec@gmail.com',
+    to: process.env.TO_EMAIL,
     from: 'noreply@powisle-english.com',
     subject: 'Message from the powisle-english.com contact form',
     text: `From: ${body.name}\nEmail: ${body.email}\nMessage: ${body.message}`,
