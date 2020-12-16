@@ -55,6 +55,9 @@ const Form: React.FC<Props> = ({ translations, setFormState }) => {
 
   return (
     <form className="form" onSubmit={onSubmit}>
+      <label htmlFor="name" className="sr-only">
+        Name
+      </label>
       <input
         className="form--input form--input-name"
         type="text"
@@ -65,6 +68,9 @@ const Form: React.FC<Props> = ({ translations, setFormState }) => {
         onChange={onChange}
         required
       />
+      <label htmlFor="email" className="sr-only">
+        Email
+      </label>
       <input
         className="form--input form--input-email"
         type="email"
@@ -75,6 +81,9 @@ const Form: React.FC<Props> = ({ translations, setFormState }) => {
         onChange={onChange}
         required
       />
+      <label htmlFor="message" className="sr-only">
+        Message
+      </label>
       <textarea
         className="form--textarea"
         name="message"
