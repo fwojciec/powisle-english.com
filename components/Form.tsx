@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Translations } from '../translations'
 
 interface Props {
   translations: Translations
@@ -55,46 +54,44 @@ const Form: React.FC<Props> = ({ translations, setFormState }) => {
   }
 
   return (
-    <>
-      <form className="form" onSubmit={onSubmit}>
-        <input
-          className="form--input form--input-name"
-          type="text"
-          name="name"
-          id="name"
-          placeholder={translations.formName}
-          value={values.name}
-          onChange={onChange}
-          required
-        />
-        <input
-          className="form--input form--input-email"
-          type="email"
-          name="email"
-          id="email"
-          placeholder={translations.formEmail}
-          value={values.email}
-          onChange={onChange}
-          required
-        />
-        <textarea
-          className="form--textarea"
-          name="message"
-          id="message"
-          placeholder={translations.formMessage}
-          rows={4}
-          value={values.message}
-          onChange={onChange}
-          required
-        />
-        <input
-          className="form--button button button--primary"
-          type="submit"
-          disabled={isSubmitting}
-          value={translations.formButton}
-        />
-      </form>
-    </>
+    <form className="form" onSubmit={onSubmit}>
+      <input
+        className="form--input form--input-name"
+        type="text"
+        name="name"
+        id="name"
+        placeholder={translations.formName}
+        value={values.name}
+        onChange={onChange}
+        required
+      />
+      <input
+        className="form--input form--input-email"
+        type="email"
+        name="email"
+        id="email"
+        placeholder={translations.formEmail}
+        value={values.email}
+        onChange={onChange}
+        required
+      />
+      <textarea
+        className="form--textarea"
+        name="message"
+        id="message"
+        placeholder={translations.formMessage}
+        rows={4}
+        value={values.message}
+        onChange={onChange}
+        required
+      />
+      <input
+        className="form--button button button--primary"
+        type="submit"
+        disabled={isSubmitting}
+        value={translations.formButton}
+      />
+    </form>
   )
 }
 

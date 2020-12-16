@@ -8,20 +8,15 @@ interface Props {
 }
 
 const Background: React.FC<Props> = ({ variant, on }) => {
-  function getPath(variant: Page) {
-    switch (variant) {
-      case 'testimonials':
-        return '/assets/img/testimonials.jpg'
-      case 'bio':
-        return '/assets/img/bio.jpg'
-      case 'services':
-        return '/assets/img/services.jpg'
-      case 'where':
-        return '/assets/img/where.jpg'
-      default:
-        return '/assets/img/start.jpg'
-    }
+  const sources: { [key in Page]: string } = {
+    start: '/start.jpg',
+    testimonials: '/testimonials.jpg',
+    bio: '/bio.jpg',
+    services: '/services.jpg',
+    where: '/where.jpg',
+    contact: '/start.jpg',
   }
+
   return (
     <AnimatePresence initial={false}>
       {on && (
@@ -33,7 +28,7 @@ const Background: React.FC<Props> = ({ variant, on }) => {
         >
           <Image
             alt="background image"
-            src={getPath(variant)}
+            src={sources[variant]}
             layout="fill"
             objectFit="cover"
             quality={75}

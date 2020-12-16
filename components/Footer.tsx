@@ -1,11 +1,10 @@
 import { forwardRef } from 'react'
-import { Translations } from '../translations'
 import Link from 'next/link'
 import Form from './Form'
 
 interface Props extends React.HTMLProps<HTMLElement> {
   translations: Translations
-  locale: 'en' | 'pl'
+  locale: Locale
   setFormState: (state: FormState) => void
 }
 

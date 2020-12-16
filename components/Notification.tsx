@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Translations } from '../translations'
 
 interface Props {
   translations: Translations
-  type: 'success' | 'error' | 'ready'
+  type: FormState
 }
 
 const Notifiction: React.FC<Props> = ({ translations, type }) => {

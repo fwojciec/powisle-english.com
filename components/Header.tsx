@@ -1,6 +1,5 @@
 import { forwardRef, useRef } from 'react'
 import useScrollOpacity from '../hooks/useScrollOpacity'
-import { Translations } from '../translations'
 
 interface Props {
   translations: Translations

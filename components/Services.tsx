@@ -55,7 +55,7 @@ interface Props {
   services: string[]
 }
 
-export const Services: React.FC<Props> = ({ services }) => {
+const Services: React.FC<Props> = ({ services }) => {
   return (
     <ul className="services">
       {services.map((text, index) => (
@@ -67,3 +67,5 @@ export const Services: React.FC<Props> = ({ services }) => {
     </ul>
   )
 }
+
+export default Services
