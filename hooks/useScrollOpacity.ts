@@ -21,7 +21,7 @@ export default function useScrollOpacity(ref: RefObject<HTMLDivElement>) {
     }
 
     function getOpacity(progress: number, windowWidth: number) {
-      if (windowWidth <= 980) return 1
+      if (windowWidth <= 736) return 1
       const x = progress > 0.5 ? 1 - progress : progress
       return Math.max(0, Math.min(1, x * 2))
     }

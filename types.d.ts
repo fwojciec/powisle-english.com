@@ -4,3 +4,5 @@ interface Section {
   ref: RefObject<HTMLElement>
   page: Page
 }
+
+type FormState = 'ready' | 'success' | 'error'

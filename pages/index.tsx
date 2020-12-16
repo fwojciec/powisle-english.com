@@ -1,19 +1,42 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MotionConfig, AnimationFeature, ExitFeature } from 'framer-motion'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Backgrounds from '../components/Backgrounds'
 import Header from '../components/Header'
 import Section from '../components/Section'
 import Testimonial from '../components/Testimonial'
 import { Services } from '../components/Services'
 import Head from 'next/head'
+import Footer from '../components/Footer'
+import Notification from '../components/Notification'
+import { Translations, English, Polish } from '../translations'
 
-const Home: NextPage = () => {
+interface Props {
+  locale: 'en' | 'pl'
+  translations: Translations
+}
+
+const Home: NextPage<Props> = ({ translations, locale }) => {
+  const [formState, setFormState] = useState<FormState>('ready')
+
+  useEffect(() => {
+    let id: number
+    if (formState === 'success' || formState === 'error') {
+      id = window.setTimeout(() => {
+        setFormState('ready')
+      }, 10000)
+    }
+    return function cleanup() {
+      window.clearTimeout(id)
+    }
+  }, [formState, setFormState])
+
   const headerRef = useRef<HTMLDivElement>()
   const testimonialsRef = useRef<HTMLDivElement>()
   const bioRef = useRef<HTMLDivElement>()
   const servicesRef = useRef<HTMLDivElement>()
   const whereRef = useRef<HTMLDivElement>()
+  const footerRef = useRef<HTMLDivElement>()
 
   const sections: Section[] = [
     { ref: headerRef, page: 'start' },
@@ -21,67 +44,91 @@ const Home: NextPage = () => {
     { ref: bioRef, page: 'bio' },
     { ref: servicesRef, page: 'services' },
     { ref: whereRef, page: 'where' },
+    { ref: footerRef, page: 'start' },
   ]
 
   return (
     <>
       <Head>
-        <title>Powiśle English Lessons</title>
+        <title>{translations.title}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="description" content={translations.description} />
+        <meta name="keywords" content={translations.keywords} />
+        <link
+          rel="alternate"
+          hrefLang={locale === 'en' ? 'pl' : 'en'}
+          href={`https://powisle-english.com${locale === 'en' ? '/pl' : ''}`}
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Raleway:400,700,800&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <MotionConfig features={[AnimationFeature, ExitFeature]}>
         <Backgrounds sections={sections} />
-        <Header ref={headerRef} />
+        <Header ref={headerRef} translations={translations} />
         <Section
           ref={testimonialsRef}
           id="testimonials"
-          title="Testimonials"
+          title={translations.testimonialsTitle}
+          thumbnail={'/assets/img/testimonials.jpg'}
           scrollTo="bio"
         >
-          <Testimonial text="Ali is an enthusiastic, funny, and enjoyable teacher." />
-          <Testimonial text="She was indispensable as I prepared for job interviews." />
-          <Testimonial text="Ali was especially great in helping me make information accessible and compelling to a variety of audiences." />
-          <Testimonial text="Great: sincere, hard-working, very accessible, very nice, and helpful." />
-          <Testimonial text="Ali was terrific at helping me organize my thoughts and claims in writing." />
+          {translations.testimonials.map((text, index) => (
+            <Testimonial key={index} text={text} />
+          ))}
         </Section>
-        <Section ref={bioRef} id="bio" title="Who I am" scrollTo="services">
-          <p>
-            I was born in New Zealand and have spent many years living in the UK
-            and USA. I studied at Cambridge University (B.A. Hons, Social and
-            Political Sciences) and University of California, Berkeley (Ph.D.,
-            Political Science). I’ve taught university classes in academic
-            writing (as well as philosophy and politics) and moved to Warsaw to
-            work on a book manuscript. Everything is great about Warsaw, except
-            I really miss working with students!
-          </p>
+        <Section
+          ref={bioRef}
+          id="bio"
+          title={translations.bioTitle}
+          thumbnail="/assets/img/bio.jpg"
+          scrollTo="services"
+        >
+          <p>{translations.bio}</p>
         </Section>
         <Section
           ref={servicesRef}
           id="services"
-          title="What I teach"
+          title={translations.servicesTitle}
+          thumbnail="/assets/img/services.jpg"
           scrollTo="where"
         >
-          <p>
-            I would be delighted to help you with your English goals. These
-            might include:
-          </p>
-          <Services />
+          <p>{translations.servicesDesc}</p>
+          <Services services={translations.services} />
         </Section>
-        <Section ref={whereRef} id="where" title="Where and how">
-          <p>
-            All levels are welcome – beginners as well as advanced students.
-          </p>
-          <br />
-          <p>
-            I’ll develop lesson plans based on your goals - whatever you want to
-            learn, we’ll learn it.
-          </p>
-          <br />
-          <p>I teach in person in Warsaw&apos;s city center or by Skype.</p>
+        <Section
+          ref={whereRef}
+          id="where"
+          title={translations.whereTitle}
+          thumbnail="/assets/img/where.jpg"
+          scrollTo="footer"
+        >
+          {translations.where.map((text, index) => (
+            <p key={index}>{text}</p>
+          ))}
         </Section>
+        <Footer
+          ref={footerRef}
+          id="footer"
+          translations={translations}
+          locale={locale}
+          setFormState={setFormState}
+        />
+        <Notification translations={translations} type={formState} />
       </MotionConfig>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+  const locale = context.locale === 'pl' ? 'pl' : 'en'
+  return {
+    props: {
+      translations: locale === 'pl' ? Polish : English,
+      locale,
+    },
+  }
 }
 
 export default Home

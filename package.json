@@ -12,6 +12,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
     "classnames": "^2.2.6",
     "framer-motion": "^2.9.5",
     "next": "10.0.3",

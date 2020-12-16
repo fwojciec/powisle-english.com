@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,400italic,700,800');
-
 // colors
 $color-fg: white;
+$color-fg-light: #a8b0b3;
 $color-text: #61686b;
 $color-bg: #313a3d;
+$color-icon: #6f7577;
 $color-borders: #dddddd;
 $color-button-1: #8cd1a8;
 $color-button-1-hover: #9ed8b6;
@@ -11,6 +11,9 @@ $color-button-2: hsla(0, 0%, 56%, 0.075);
 $color-button-2-hover: hsla(0, 0%, 56%, 0.15);
 $color-containter-bg: hsla(0, 0%, 100%, 0.95);
 $color-testimonial-bg: hsla(0, 0%, 60%, 0.075);
+$color-footer-fg: hsla(0, 0%, 100%, 0.5);
+$color-footer-borders: hsla(0, 0%, 100%, 0.2);
+$color-error: #d17d77;
 
 // breakpoints
 $bp-large: 1680px;
@@ -67,9 +70,15 @@ html {
 body {
   color: $color-fg;
   background-color: $color-bg;
-  font-size: 20px;
-  font-family: 'Raleway', 'Helvetica', sans-serif;
   text-align: center;
+}
+
+body,
+input,
+textarea {
+  font-family: 'Raleway', 'Helvetica', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
   line-height: 1.75em;
 
   @include large {
@@ -125,6 +134,10 @@ h6 {
   line-height: 1.5em;
 }
 
+p {
+  margin-bottom: 2em;
+}
+
 .background {
   z-index: -10;
   position: fixed;
@@ -154,6 +167,7 @@ h6 {
     top: 50%;
     left: 0%;
     width: 100%;
+    padding: 0 1em;
     margin-top: -183.5px;
 
     @include large {
@@ -161,7 +175,7 @@ h6 {
     }
 
     @include small {
-      position: relative;
+      position: unset;
       top: unset;
       left: unset;
       margin: 0;
@@ -211,7 +225,7 @@ h6 {
     height: 3em;
     padding: 0 2em;
     color: $color-fg;
-    background-color: $color-button-1;
+    background: $color-button-1;
     font-weight: 700;
     letter-spacing: 0.05em;
     line-height: 3.15em;
@@ -219,6 +233,10 @@ h6 {
 
     &:hover {
       background-color: $color-button-1-hover;
+    }
+
+    &:disabled {
+      background-color: $color-bg;
     }
   }
 
@@ -256,6 +274,10 @@ h6 {
   color: $color-text;
   padding: 2.5em;
 
+  @include medium {
+    width: 80%;
+  }
+
   &--header {
     bottom: 0;
     position: absolute;
@@ -277,6 +299,10 @@ h6 {
     box-shadow: inset 0 1px 0 0 $color-borders;
     padding: 5em 2.5em 8em;
 
+    @include medium {
+      padding: 3em 3em 8em;
+    }
+
     @include small {
       padding: 3em 1.5em 1em;
       width: 80%;
@@ -288,9 +314,40 @@ h6 {
       width: 100%;
     }
   }
+
+  &--footer {
+    padding: 5em 2.5em 3em;
+    box-shadow: inset 0 1px 0 0 $color-borders;
+
+    @include medium {
+      padding: 3em 3em 1em;
+    }
+
+    @include small {
+      padding: 3em 1.5em 1em;
+    }
+
+    @include xsmall {
+      padding: 3em 1em 1em;
+      width: 100%;
+    }
+  }
 }
 
 .section {
+  &--image {
+    display: none;
+
+    @include medium {
+      display: block;
+      margin: 0 0 4em;
+    }
+
+    @include small {
+      margin: -1.5em 0 2.5em;
+    }
+  }
+
   &--title {
     @include major;
   }
@@ -299,12 +356,10 @@ h6 {
 .testimonial {
   margin: 2.5em auto;
   padding: 1em;
-  font-size: 1.1em;
   background: $color-testimonial-bg;
 
   @include small {
     margin: 1em auto;
-    font-size: 1em;
   }
 }
 
@@ -312,11 +367,12 @@ h6 {
   list-style: none;
   padding: 0;
   position: relative;
-  margin: 2em 0;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
   &--item {
-    display: block;
-    float: left;
     padding: 3em 0;
     width: 50%;
 
@@ -336,12 +392,198 @@ h6 {
       margin-top: -3em;
       position: absolute;
       width: 100%;
+
+      @include xsmall {
+        display: none;
+      }
+    }
+
+    @include xsmall {
+      width: 100%;
+      box-shadow: inset 0 1px 0 0 $color-borders !important;
+      margin: 2em 0 0;
+      padding: 2em 0 0;
+
+      &:first-child {
+        box-shadow: none !important;
+        margin-top: 0;
+        padding: 1em 0 0;
+      }
     }
   }
 
   &--icon {
     width: 40px;
     height: 40px;
+    color: $color-icon;
     margin-bottom: 1em;
+  }
+}
+
+.footer {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 12em;
+
+  @include medium {
+    min-height: unset;
+    padding: 0;
+  }
+
+  &--title {
+    @include major;
+  }
+
+  &--bottom {
+    bottom: 2em;
+    color: $color-footer-fg;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+
+    @include medium {
+      bottom: auto;
+      position: relative;
+      padding: 3em 3em 1em;
+    }
+  }
+
+  &--copyright {
+    padding: 2em 0;
+    font-size: 0.8em;
+    line-height: 1em;
+
+    @include xsmall {
+      line-height: inherit;
+    }
+
+    & > li {
+      border-left: 1px solid $color-footer-borders;
+      display: inline-block;
+      margin: 0 0 0 1em;
+      padding: 0 0 0 1em;
+
+      @include xsmall {
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+
+      &:first-child {
+        border-left: 0;
+        margin-left: 0;
+        padding-left: 0;
+      }
+
+      a {
+        color: inherit;
+        transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+        border-bottom: 1px dotted;
+
+        &:hover {
+          color: $color-fg;
+          border-bottom-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.form {
+  margin-bottom: 2em;
+  display: grid;
+  grid-gap: 1.5em;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    'a b'
+    'c c'
+    'd d';
+
+  @include small {
+    grid-gap: 1em;
+  }
+
+  @include xsmall {
+    grid-template-columns: auto;
+    grid-template-areas:
+      'a'
+      'b'
+      'c'
+      'd';
+  }
+
+  input[type='text'],
+  input[type='email'],
+  textarea {
+    box-shadow: none;
+    appearance: none;
+    background: $color-button-2-hover;
+    border-radius: 0;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    outline: 0;
+
+    &::placeholder {
+      color: $color-fg-light;
+    }
+
+    &:focus {
+      box-shadow: inset 0 0 0 2px $color-button-1;
+    }
+  }
+
+  &--input {
+    height: 3em;
+    padding: 0 1em;
+
+    &-name {
+      grid-area: a;
+    }
+
+    &-email {
+      grid-area: b;
+    }
+  }
+
+  &--textarea {
+    padding: 0.75em 1em;
+    grid-area: c;
+  }
+
+  &--button {
+    grid-area: d;
+    justify-self: center;
+    appearance: none;
+    outline: 0;
+
+    &:focus {
+      box-shadow: inset 0 0 0 2px $color-button-1;
+    }
+
+    @include xsmall {
+      width: 100%;
+    }
+  }
+}
+
+.notification {
+  position: fixed;
+  top: 2em;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $color-fg;
+  background-color: $color-button-1;
+  padding: 1em 3em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+  &-error {
+    background-color: $color-error;
+  }
+
+  &--msg {
+    margin: 0;
   }
 }

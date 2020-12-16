@@ -38,7 +38,6 @@ const Background: React.FC<Props> = ({ variant, on }) => {
             objectFit="cover"
             quality={75}
             loading="eager"
-            unoptimized
           />
         </motion.div>
       )}
